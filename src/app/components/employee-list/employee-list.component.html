@@ -1,0 +1,118 @@
+<div class="employee-list-container">
+  <div class="header">
+    <h1>Employee Management</h1>
+    <a routerLink="/employee/new" class="btn btn-primary">
+      <span class="icon">+</span>
+      Add New Employee
+    </a>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search by name, email, or employee code..."
+      (input)="filterEmployees($event)"
+      [value]="searchTerm"
+    />
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button class="btn-close" (click)="error = null">×</button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading employees...</p>
+  </div>
+
+  <!-- Employee Table -->
+  <!-- 🔥 FIX: employees.length use kiya hai -->
+<div *ngIf="!loading && filteredEmployees.length > 0" class="table-container">
+
+    <table class="employee-table">
+      <thead>
+        <tr>
+          <th>Employee Code</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Created Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let employee of filteredEmployees" class="table-row">
+          <td>
+            <span class="employee-code">{{ employee.employeeCode }}</span>
+          </td>
+
+          <td>
+            <div class="employee-name">
+              <div class="avatar">
+                {{ employee.fullName.charAt(0).toUpperCase() }}
+              </div>
+              <span>{{ employee.fullName }}</span>
+            </div>
+          </td>
+
+          <td>{{ employee.email }}</td>
+
+          <td>
+            <span
+              class="status-badge"
+              [class.active]="employee.isActive"
+              [class.inactive]="!employee.isActive"
+              (click)="toggleStatus(employee)"
+            >
+              {{ employee.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </td>
+
+          <td>{{ employee.createdDate | date: 'MMM d, y' }}</td>
+
+          <td>
+            <div class="action-buttons">
+              <a
+                [routerLink]="['/employee/edit', employee.id]"
+                class="btn-icon btn-edit"
+                title="Edit"
+              >
+                ✏️
+              </a>
+
+              <button
+                (click)="deleteEmployee(employee.id, employee.fullName)"
+                class="btn-icon btn-delete"
+                title="Delete"
+              >
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State -->
+  <!-- 🔥 FIX: employees.length use kiya hai -->
+<div *ngIf="!loading && filteredEmployees.length === 0" class="empty-state">
+
+    <div class="empty-icon">👥</div>
+    <h2>No employees found</h2>
+
+    <p *ngIf="searchTerm">Try adjusting your search criteria</p>
+    <p *ngIf="!searchTerm">Get started by adding your first employee</p>
+
+    <a *ngIf="!searchTerm" routerLink="/employee/new" class="btn btn-primary">
+      Add New Employee
+    </a>
+  </div>
+</div>
