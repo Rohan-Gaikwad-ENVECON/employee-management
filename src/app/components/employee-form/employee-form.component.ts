@@ -94,7 +94,7 @@ export class EmployeeFormComponent implements OnInit {
                 this.successMessage = 'Employee created successfully!';
                 this.loading = false;
                 setTimeout(() => {
-                    this.router.navigate(['/employees']);
+                    this.router.navigate(['/master/employee']);
                 }, 1500);
             },
             error: (err) => {
@@ -120,7 +120,7 @@ export class EmployeeFormComponent implements OnInit {
                 this.successMessage = 'Employee updated successfully!';
                 this.loading = false;
                 setTimeout(() => {
-                    this.router.navigate(['/employees']);
+                    this.router.navigate(['/master/employee']);
                 }, 1500);
             },
             error: (err) => {
@@ -171,6 +171,6 @@ export class EmployeeFormComponent implements OnInit {
     }
 
     cancel(): void {
-        this.router.navigate(['/employees']);
+        this.router.navigate(['/master/employee']);
     }
 }

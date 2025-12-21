@@ -1,7 +1,7 @@
 <div class="employee-list-container">
   <div class="header">
     <h1>Employee Management</h1>
-    <a routerLink="/employee/new" class="btn btn-primary">
+    <a routerLink="/master/employee/new" class="btn btn-primary">
       <span class="icon">+</span>
       Add New Employee
     </a>
@@ -80,7 +80,7 @@
           <td>
             <div class="action-buttons">
               <a
-                [routerLink]="['/employee/edit', employee.id]"
+                [routerLink]="['/master/employee/edit', employee.id]"
                 class="btn-icon btn-edit"
                 title="Edit"
               >
@@ -111,7 +111,7 @@
     <p *ngIf="searchTerm">Try adjusting your search criteria</p>
     <p *ngIf="!searchTerm">Get started by adding your first employee</p>
 
-    <a *ngIf="!searchTerm" routerLink="/employee/new" class="btn btn-primary">
+    <a *ngIf="!searchTerm" routerLink="/master/employee/new" class="btn btn-primary">
       Add New Employee
     </a>
   </div>
